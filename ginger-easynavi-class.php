@@ -107,7 +107,7 @@ class Ginger_easy_navigation {
 			<script id="navi-template" text="x-tmpl-mustache">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#navi-list" href="#postType-{{ post_type }}">{{post_type}}</a>
+						<a class="collapsed" data-parent="#navi-list" href="#">+  {{post_type}}</a>
 					</h4>
 				</div>
 				<div id="postType-{{ post_type }}" class="panel-collapse collapse" style="height: 0px;">

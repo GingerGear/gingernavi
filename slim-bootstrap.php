@@ -35,11 +35,11 @@ $app->get(
     '/post/types',
 	function () use ($app) { 
 			
-		$post_types = array(
-			array(
+		$post_types = array (
+			array (
 				'post_type' => 'post'
 			),
-			array(
+			array (
 				'post_type' => 'page'
 			),
 		);
@@ -59,8 +59,32 @@ $app->get(
 				);
 		}
 
-		echo json_encode($post_types);
+		echo json_encode( $post_types );
     }
+);
+
+$app->get(
+	'/post/types/:type',
+	function ( $type ) {
+		$return = array();	
+		$current_user = wp_get_current_user();
+		$args = array (
+			'author' => $current_user->ID,	
+			'fields' => 'ids',
+		);
+
+		$args['post_type'] = $type;
+
+		$query = new WP_Query( $args );
+		
+		while( $query->have_posts() ){
+			$query->the_post();
+			$return[] = array(
+				'post_id' => get_the_ID(),
+			);
+		}
+		echo json_encode( $return );
+	}
 );
 
 // POST route

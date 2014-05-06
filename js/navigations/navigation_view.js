@@ -23,16 +23,30 @@ NavigationManager.module("NavigationApp.List",
 		itemView: List.PostTypeItem,
 
 		itemViewContainer: 'ul',
-
+			
+		events: {
+			"click .collapsed": function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				this.model.fetch({
+					data: {
+						'action': 'ginger_navi',
+					},	
+				});
+			}
+		},
+		
 	   	initialize: function () {
-			this.listenTo( this.model, 'change', this.render );
+			//this.listenTo( this.model, 'change', this.render );
 		},	
 
 	    render: function () {
 			var html = Mustache.to_html( this.template, this.model.toJSON() );
     		this.$el.html( html );
 			return this;
-		}
+		},
+
+
 	});
 	
 	List.PostTypeGroups = Marionette.CollectionView.extend ({
